@@ -36,7 +36,7 @@ public struct TypeInfo {
     public var numberOfPayloadEnumCases: Int = 0
     public var genericTypes: [Any.Type] = []
     
-    init<Metadata: MetadataType>(metadata: Metadata) {
+    public init<Metadata: MetadataType>(metadata: Metadata) {
         kind = metadata.kind
         size = metadata.size
         alignment = metadata.alignment

@@ -20,7 +20,7 @@
 // OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE
 // SOFTWARE.
 
-struct RelativePointer<Offset: FixedWidthInteger, Pointee> {
+public struct RelativePointer<Offset: FixedWidthInteger, Pointee> {
     var offset: Offset
     
     mutating func pointee() -> Pointee {
@@ -38,7 +38,7 @@ struct RelativePointer<Offset: FixedWidthInteger, Pointee> {
 }
 
 extension RelativePointer: CustomStringConvertible {
-    var description: String {
+    public var description: String {
         return "\(offset)"
     }
 }
