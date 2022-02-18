@@ -20,7 +20,7 @@
 // OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE
 // SOFTWARE.
 
-struct ProtocolTypeContainer {
-    let type: Any.Type
-    let witnessTable: Int
+public struct ProtocolTypeContainer {
+    public let type: Any.Type
+    public let witnessTable: Int
 }

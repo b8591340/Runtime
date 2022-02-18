@@ -20,19 +20,24 @@
 // OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE
 // SOFTWARE.
 
-struct FunctionMetadata: MetadataType {
+public struct FunctionMetadata: MetadataType {
     
-    var pointer: UnsafeMutablePointer<FunctionMetadataLayout>
+    public var pointer: UnsafeMutablePointer<FunctionMetadataLayout>
     
-    func info() -> FunctionInfo {
+    public init(pointer: UnsafeMutablePointer<FunctionMetadataLayout>) {
+        self.pointer = pointer
+    }
+
+    public func info() -> FunctionInfo {
         let (numberOfArguments, argumentTypes, returnType) = argumentInfo()
         return FunctionInfo(numberOfArguments: numberOfArguments,
                             argumentTypes: argumentTypes,
                             returnType: returnType,
                             throws: `throws`())
     }
-    
-    private func argumentInfo() -> (Int, [Any.Type], Any.Type) {
+
+    @inlinable
+    func argumentInfo() -> (Int, [Any.Type], Any.Type) {
         let n = numberArguments()
         let argTypeBuffer = pointer.pointee.argumentVector.vector(n: n + 1)
         
@@ -42,11 +47,13 @@ struct FunctionMetadata: MetadataType {
         return (n, argTypes, resultType)
     }
     
-    private func numberArguments() -> Int {
+    @inlinable
+    func numberArguments() -> Int {
         return pointer.pointee.flags & 0x00FFFFFF
     }
     
-    private func `throws`() -> Bool {
+    @inlinable
+    func `throws`() -> Bool {
         return pointer.pointee.flags & 0x01000000 != 0
     }
 }

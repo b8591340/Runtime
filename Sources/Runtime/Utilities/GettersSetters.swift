@@ -20,20 +20,20 @@
 // OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE
 // SOFTWARE.
 
-protocol Getters {}
-extension Getters {
+public protocol Getters {}
+public extension Getters {
     static func get(from pointer: UnsafeRawPointer) -> Any {
         return pointer.assumingMemoryBound(to: Self.self).pointee
     }
 }
 
-func getters(type: Any.Type) -> Getters.Type {
+public func getters(type: Any.Type) -> Getters.Type {
     let container = ProtocolTypeContainer(type: type, witnessTable: 0)
     return unsafeBitCast(container, to: Getters.Type.self)
 }
 
-protocol Setters {}
-extension Setters {
+public protocol Setters {}
+public extension Setters {
     static func set(value: Any, pointer: UnsafeMutableRawPointer, initialize: Bool = false) {
         if let value = value as? Self {
             let boundPointer = pointer.assumingMemoryBound(to: self);
@@ -46,7 +46,7 @@ extension Setters {
     }
 }
 
-func setters(type: Any.Type) -> Setters.Type {
+public func setters(type: Any.Type) -> Setters.Type {
     let container = ProtocolTypeContainer(type: type, witnessTable: 0)
     return unsafeBitCast(container, to: Setters.Type.self)
 }
